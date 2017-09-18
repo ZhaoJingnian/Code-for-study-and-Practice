@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>常用方法 筛选 文档处理</title>
+</head>
+<body>
+<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+<script>
+
+    //1、css:
+    var $box = $("#box");
+    console.log($box.css("width")); //获取
+    $box.css("background", "red"); //设置
+    $box.css({ //批量设置
+        background: "#fff",
+        opacity: 0.5
+    });
+
+    //2、offset:不管父级参照物是谁，获取当前元素距离body的偏移距离（top/left）
+    //position:获取当前元素距离父级参照物的偏移（top/left）
+    $box.offset();//距离body的
+    $box.position();//距离父级参照物的
+
+    //3、scrollTop/scrollLeft:滚动条卷去距离
+
+    //4、width/height:获取或者设置元素的width/height
+
+    //5、innerWidth/innerHeight:获取元素可视区域的宽高（等价于clientWidth/clientHeight）
+
+</script>
+</body>
+</html>

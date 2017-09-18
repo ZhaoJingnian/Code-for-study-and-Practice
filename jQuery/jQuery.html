@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery——常用的选择器</title>
+</head>
+<body>
+<div class="oDiv" id="div1">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+<ul>
+    <li></li>
+    <li>abc</li>
+    <li></li>
+</ul>
+<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+
+    //一、原生对象和jQuery对象之间的相互转换问题：
+    //1、原生的转换为jQuery：$(原生js对象)
+    $(oDiv).attr("abc");
+    //2、jQuery转换为原生：直接通过索引获取对应的元素对象即可
+    $oDiv[0].getAttribute("abc");
+    $oDiv.get(0); //与上面的作用一样，都是通过索引来获取指定位置的元素对象（js原生对象）
+
+    //二、更多的jQuery选择器：
+    //1、基本选择器：
+    $("#div1"); //id选择器
+    $("div"); //元素选择器
+    $(".w100"); //class选择器
+    $("*"); //所有
+    $("#div,div,.w100"); //把每一个选择器获取到的jQuery对象融合在一起，一起获取到
+    //2、层次选择器：
+    $("#div li"); //获取子子孙孙级别的
+    $("#div>li"); //只在子集中进行查找
+    $("#div+li"); //获取它的下一个弟弟（并且标签名是li）
+    $("#div~li"); //获取它的所有弟弟元素（并且标签名是li）
+    //3、基本过滤选择器：
+    $("#div1>div:first"); //集合中第一个
+    $("#div1>div:last"); //集合中最后一个
+    $("#div1>div:not(#div3)"); //集合中除了div3
+    $("#div1>div:even"); //偶数
+    $("#div1>div:odd"); //奇数
+    $("#div>div:eq(0)"); //通过索引来获取集合中的某一个，结果是一个jQuery对象。而之前的get()方法虽然也是通过索引来获取，但是获取到的结果是一个js原生对象
+    $("#div>div:gt(1)"); //大于索引1，不包含1
+    $("#div>div:lt(1)"); //小于索引1，不包含1
+    //4、内容过滤选择器：
+    $("#div li:contains("abc")"); //获取的所有li中，内容包含abc的
+    $("#div li:has("abc")"); //获取的所有li中，内容包含abc的
+</script>
+</body>
+</html>

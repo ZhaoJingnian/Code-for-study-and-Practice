@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery——常用方法属性操作</title>
+</head>
+<body>
+<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+
+    //一、jquery的回调函数：
+    function fn1(value) {
+        console.log("fn1:" + value);
+    }
+    function fn2(value) {
+        console.log("fn2:" + value);
+    }
+    //第一种：
+    var $call = $.Callbacks(); //创建一个回调函数的列表集合
+    $call.add(fn1); //向集合中增加一个叫做fn1的函数
+    $call.fire(100); //触发fire方法的时候，回调函数集合中的方法执行，并且把对应的参数值传递给对应的方法
+    $call.add(fn2);
+    $call.fire(200); //fn1:200 fn2:200
+    $call.remove(fn1); //在集合中移除fn1这个方法
+    $call.fire(200); //fn2:200
+    //第二种：
+    //和原生js中的window.onload对应（当页面html结构、图片、文字等都加载完后才会触发这个行为，并且只能执行一次，后面的会把前面的覆盖掉）
+    //下面这个方法的意思：只要html结构加载完成就会触发对应的行为，而且在一个页面可以使用多次
+    $(document).ready(function () {
+    });
+    //等价于下面这个：
+    $(function () {
+    });
+    //两个好处：1、所有的html都加载完成了；2、形成了一个闭包
+
+
+    //三、属性：
+    //attr:获取和设置元素的自定义属性，等价于原生js中的set/getAttribute
+    var $box = jQuery("#box");
+    $box.attr("abc", 100); //设置
+    console.log($box.attr("abc")); //获取
+    $box.attr("abc", 1000); //修改
+    $box.removeAttr("abc"); //移除
+    $box.attr({
+        index: 1,
+        name: "abcd"
+    }); //批量设置
+
+    //prop：获取和设置元素的属性（和attr是不同的两套方式，两者之间不能相互混用，即用attr设置的只能用attr删除、修改和获取，同理用prop设置的，也只能用prop操作）
+    //prop内置的属性可以在html结构中体现出来，不是内置的属性是体现不出来的（但是可以获取到值）
+    //removeProp：
+    var $box = jQuery("#box");
+    $box.prop({
+        index:100,
+        class:"w1000"
+    });
+    //attr和prop的区别：
+    //attr一般都是设置和操作元素的自定义属性的，而prop一般都是用来操作元素的内置属性的，尤其是表单元素的操作，大部分都在使用prop
+
+    //addClass/removeClass/toggleClass
+    //toggle系列都是之前有就是移除，没有就是新增
+    var $box = jQuery("#box");
+    $box.addClass("w100");
+    $box.removeClass("w100");
+    $box.toggleClass("w100"); //新增
+    $box.toggleClass("w100"); //移除
+
+
+
+
+
+    //四、关于jquery内置遍历机制和手动循环的方法
+    var $box=$("#box"),$boxDivList=$("div",$box);
+    //jQuery选择器的参数(selector,context)，context一般不需要传递，默认是document，但是也可以指定具体的上下文来获取需要的元素
+    //$("div",$box)等价于$("#box div")
+    //$("#box>div")等价于$box.children("div")
+    $boxDivList.addClass("w1");
+    //通过jQuery选择器获取到一个集合，让集合直接调用jQuery中提供的方法，相当于给集合中的每一个元素都调取了对应的方法（jquery内置循环操作）
+
+    //each() 循环,可以遍历jquery集合中的每一项，和数组的forEach类似
+    $boxDivList.each(function (index,item) {
+        $(item).addClass("w2");
+        //$(this).addClass("w2");
+        //this就是item，当前遍历的这一项的内容
+    });
+
+
+
+
+</script>
+</body>
+</html>
